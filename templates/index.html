@@ -4,22 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Review Site</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyUkByXQPO5KZlRrfaG1j0i5t4LkkGFC3X"
+          crossorigin="anonymous">
 </head>
 <body>
-    <h1>Book Reviews</h1>
-    <ul>
-        {% for book in books %}
-            <li>{{ book.title }} by {{ book.author }} - {{ book.review }}</li>
-        {% endfor %}
-    </ul>
-    <form action="/add_book" method="post">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required><br>
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" required><br>
-        <label for="review">Review:</label>
-        <textarea id="review" name="review"></textarea><br>
-        <input type="submit" value="Add Book">
-    </form>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Book Reviews</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Book Reviews</h1>
+        <ul>
+            {% for book in books %}
+                <li>{{ book.title }} by {{ book.author }} - {{ book.review }}</li>
+            {% endfor %}
+        </ul>
+        <form action="/add_book" method="post">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required><br>
+            <label for="review">Review:</label>
+            <textarea id="review" name="review"></textarea><br>
+            <input type="submit" value="Add Book">
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY1TE2F5/JJ+cPTaI2jQoaoYtq1Bq5DO9dD2N"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyUkByXQPO5KZlRrfaG1j0i5t4LkkGFC3X"
+            crossorigin="anonymous"></script>
+            <script src="{{ url_for('static', filename='script.js') }}"></script>       
 </body>
 </html>
